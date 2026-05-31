@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -6,17 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Portfolio of Calvin Lee, Mainframe & Backend Developer">
     
-    <!-- Open Graph SEO Tags -->
     <meta property="og:title" content="Calvin Lee | Software Developer">
     <meta property="og:description" content="Bridging legacy mainframe architecture with modern AI.">
     <meta property="og:type" content="website">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <style>
@@ -157,10 +154,9 @@
         .section { padding: 6rem 0; border-top: 1px solid var(--border-light); display: grid; grid-template-columns: 1fr 3.5fr; gap: 4rem; scroll-margin-top: 80px; }
         .section-label { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; color: var(--text-main); margin-top: 5px; }
 
-        /* Project Filtering States */
-        .list-item { margin-bottom: 3rem; transition: opacity 0.5s ease, filter 0.5s ease; }
+        /* Project List Items */
+        .list-item { margin-bottom: 3rem; }
         .list-item:last-child { margin-bottom: 0; }
-        .list-item.dimmed { opacity: 0.2; filter: grayscale(100%); pointer-events: none; }
         
         .meta-text { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.5rem; }
 
@@ -191,15 +187,12 @@
         .highlight-item.highlight-active { border-color: var(--accent); background-color: rgba(156, 39, 39, 0.02); transform: translateX(8px); }
         .highlight-item p:last-child { margin-bottom: 0; }
 
-        /* Tech Tags Filter */
+        /* Static Tech Tags */
         .tech-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .tag {
             font-size: 0.85rem; padding: 0.3rem 0.8rem; border: 1px solid var(--border-light);
             border-radius: 4px; color: var(--text-muted); background: var(--bg-alt);
-            cursor: pointer; transition: all 0.3s ease;
         }
-        .tag:hover { border-color: var(--text-main); color: var(--text-main); }
-        .tag.active { background: var(--text-main); color: var(--bg-alt); border-color: var(--text-main); }
 
         /* Modified Contact List & Social Icons */
         .contact-list { list-style: none; }
@@ -218,7 +211,7 @@
         .social-icon { font-size: 2rem; color: var(--text-main); transition: color 0.3s, transform 0.3s; display: inline-flex; }
         .social-icon:hover { color: var(--accent); transform: translateY(-3px); }
 
-        /* --- BGM FOLDER TAB (Retractable) --- */
+        /* --- BGM FOLDER TAB (Retractable & Pulsing) --- */
         #audio-tab {
             position: fixed;
             bottom: 0;
@@ -239,6 +232,17 @@
 
         #audio-tab.collapsed {
             transform: translateY(calc(100% - 34px));
+        }
+
+        /* Attention Guidance Pulse */
+        #audio-tab.pulse-attention {
+            animation: tabGlowPulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes tabGlowPulse {
+            0% { border-color: var(--border-light); box-shadow: 0 -4px 15px rgba(0,0,0,0.06); }
+            50% { border-color: var(--accent); box-shadow: 0 -4px 25px rgba(156, 39, 39, 0.2); }
+            100% { border-color: var(--border-light); box-shadow: 0 -4px 15px rgba(0,0,0,0.06); }
         }
 
         .audio-tab-handle {
@@ -389,22 +393,22 @@
 
             /* Mobile Portrait Layout (Restored Flush Design) */
             .hero { 
-                padding: 6rem 0 0 0; /* Zero bottom padding allows image to rest on border */
+                padding: 6rem 0 0 0; 
                 flex-direction: column;
-                align-items: center; /* Center everything */
-                gap: 2rem; /* Reduced gap to bring image closer to text */
+                align-items: center; 
+                gap: 2rem; 
             }
             .hero-content { padding-bottom: 0; }
             
             .hero-portrait { 
                 width: 100%; 
-                max-width: 260px; /* Scaled down for mobile */
+                max-width: 260px; 
                 height: auto;
                 flex: none; 
                 margin: 0 auto; 
                 display: flex;
                 justify-content: center;
-                align-items: flex-end; /* Ensures image bottom anchors perfectly */
+                align-items: flex-end; 
                 position: relative;
                 z-index: 1;
             }
@@ -446,11 +450,11 @@
         </nav>
     </header>
 
-    <div id="audio-tab" class="collapsed">
+    <div id="audio-tab" class="collapsed pulse-attention">
         <div class="audio-tab-handle" onclick="toggleBGMTab()">
             <div class="bgm-title-container">
                 <i class="ph-light ph-music-notes" id="bgm-icon"></i> 
-                <div class="bgm-scroller"><span class="scrolling-text">🎵 Melo Studio - AI Music Project</span></div>
+                <div class="bgm-scroller"><span class="scrolling-text">🎵 Original Soundtrack • 100% AI-Generated by Calvin Lee</span></div>
             </div>
             <i class="ph-bold ph-caret-down toggle-icon" id="bgm-caret"></i>
         </div>
@@ -513,7 +517,7 @@
                 <div class="list-item reveal" style="margin-top: 4rem;">
                     <div class="meta-text">Education</div>
                     <h3>The University of Queensland</h3>
-                    <p style="margin-bottom: 0.2rem;">BE, Information Technology (2021 — 2022)</p>
+                    <p style="margin-bottom: 0.2rem;">BE, Information Technology (2020 — 2021)</p>
                     <p style="font-size: 0.85rem; color: var(--accent); font-weight: 400;">QS World University Rankings: #46 Globally (2021)</p>
                     
                     <h3 style="margin-top: 1.5rem;">HELP University</h3>
@@ -575,7 +579,7 @@
                     <div class="carousel-track-wrapper">
                         <div class="carousel-track" id="personal-carousel">
                             <div class="carousel-slide" data-index="0">
-                                <iframe id="yt-iframe" src="https://www.youtube.com/embed/oGyh4GGf84k?enablejsapi=1&autoplay=1&mute=1&controls=0" title="Melo Studio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe id="yt-iframe" src="https://www.youtube.com/embed/oGyh4GGf84k?enablejsapi=1&autoplay=0&controls=0" title="Melo Studio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             
                             <div class="carousel-slide" data-index="1" style="background: #1a1a1a; display: flex; flex-direction: column; color: white; cursor: pointer;" onclick="moveCarousel('personal-carousel', 1)">
@@ -638,7 +642,7 @@
                 
                 <div style="margin-bottom: 2rem;">
                     <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-main); margin-bottom: 0.8rem;">Primary Focus</h4>
-                    <div class="tech-grid" id="tech-filters">
+                    <div class="tech-grid">
                         <span class="tag">JCL</span>
                         <span class="tag">COBOL</span>
                         <span class="tag">Assembler</span>
@@ -648,7 +652,7 @@
 
                 <div>
                     <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-main); margin-bottom: 0.8rem;">Additional Experience</h4>
-                    <div class="tech-grid" id="tech-filters">
+                    <div class="tech-grid">
                         <span class="tag">Node.js</span>
                         <span class="tag">Python</span>
                         <span class="tag">PHP</span>
@@ -753,39 +757,6 @@
             });
             elem.addEventListener('mouseleave', () => {
                 elem.style.transform = `translate(0px, 0px)`;
-            });
-        });
-
-        // --- Tech Stack Filtering ---
-        const tags = document.querySelectorAll('.tech-grid .tag');
-        const projectItems = document.querySelectorAll('.list-item[data-tech], .highlight-item[data-tech]');
-        
-        tags.forEach(tag => {
-            tag.addEventListener('click', () => {
-                const isActive = tag.classList.contains('active');
-                tags.forEach(t => t.classList.remove('active')); 
-
-                if (!isActive) {
-                    tag.classList.add('active');
-                    const selectedTech = tag.innerText.trim();
-                    let firstMatch = null;
-                    
-                    projectItems.forEach(item => {
-                        if (item.dataset.tech && item.dataset.tech.includes(selectedTech)) {
-                            item.classList.remove('dimmed');
-                            if (!firstMatch) firstMatch = item;
-                        } else {
-                            item.classList.add('dimmed');
-                        }
-                    });
-                    
-                    if (firstMatch) {
-                        const y = firstMatch.getBoundingClientRect().top + window.scrollY - 100;
-                        window.scrollTo({ top: y, behavior: 'smooth' });
-                    }
-                } else {
-                    projectItems.forEach(item => item.classList.remove('dimmed'));
-                }
             });
         });
 
@@ -937,32 +908,17 @@
             ytPlayer = new YT.Player('yt-iframe', {
                 events: {
                     'onReady': function(event) {
-                        // Keep muted initially to guarantee autoplay works on modern browsers
-                        event.target.mute(); 
-                        event.target.playVideo(); 
-                        
-                        // Global Interaction Listener: Unmute on first recognized user activation
-                        const enableAudio = () => {
-                            if (ytPlayer && ytPlayer.unMute) {
-                                ytPlayer.unMute();
-                                ytPlayer.setVolume(50);
-                                document.getElementById('bgm-volume').value = 50;
-                            }
-                            // Clean up listeners immediately after successfully executing
-                            ['click', 'mousedown', 'touchstart', 'keydown'].forEach(evt => {
-                                window.removeEventListener(evt, enableAudio);
-                            });
-                        };
-
-                        // Attach exclusively to valid browser user-activation events
-                        ['click', 'mousedown', 'touchstart', 'keydown'].forEach(evt => {
-                            window.addEventListener(evt, enableAudio, { once: true, passive: true });
-                        });
+                        // Setup basic loading volume metrics cleanly without forcing autoplay sequences
+                        if (ytPlayer && ytPlayer.setVolume) {
+                            ytPlayer.setVolume(50);
+                            document.getElementById('bgm-volume').value = 50;
+                        }
                     },
                     'onStateChange': function(event) {
                         const btnIcon = document.querySelector('#bgm-play-btn i');
                         if(event.data == YT.PlayerState.PLAYING) {
                             btnIcon.className = 'ph-fill ph-pause';
+                            removePulseAttention(); // Immediately clear pulsing once track active
                         } else {
                             btnIcon.className = 'ph-fill ph-play';
                         }
@@ -971,18 +927,24 @@
             });
         }
 
+        // Helper function to turn off suggestion glowing
+        function removePulseAttention() {
+            document.getElementById('audio-tab').classList.remove('pulse-attention');
+        }
+
         function toggleBGMTab() {
             document.getElementById('audio-tab').classList.toggle('collapsed');
+            removePulseAttention(); // Turn off pulse when user actively expands tab
         }
 
         function toggleBGM(e) {
             if(e) e.stopPropagation();
+            removePulseAttention();
             if(ytPlayer && ytPlayer.getPlayerState) {
                 const state = ytPlayer.getPlayerState();
                 if(state == YT.PlayerState.PLAYING) {
                     ytPlayer.pauseVideo();
                 } else {
-                    ytPlayer.unMute(); 
                     ytPlayer.playVideo();
                 }
             }
@@ -990,7 +952,6 @@
 
         document.getElementById('bgm-volume').addEventListener('input', function(e) {
             if(ytPlayer && ytPlayer.setVolume) {
-                ytPlayer.unMute();
                 ytPlayer.setVolume(e.target.value);
             }
         });
