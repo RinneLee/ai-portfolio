@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Calvin Lee | Software Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Portfolio of Calvin Lee, Mainframe & Backend Developer">
+    
+    <!-- Open Graph SEO Tags -->
+    <meta property="og:title" content="Calvin Lee | Software Developer">
+    <meta property="og:description" content="Bridging legacy mainframe architecture with modern AI.">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        :root {
+            --bg-color: #faf9f5;
+            --bg-alt: #ffffff;
+            --text-main: #2b2a27;
+            --text-muted: #73716c;
+            --border-light: #e6e4df;
+            --accent: #9c2727;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #dcdad5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: 80px; 
+        }
+
+        #neural-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; pointer-events: none; opacity: 0.8;
+        }
+
+        /* Expansive 1200px Layout for Desktop */
+        .container {
+            max-width: 1200px; margin: 0 auto; padding: 0 5%;
+            position: relative; z-index: 1;
+        }
+
+        /* --- FIXED HEADER & NAVIGATION --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(250, 249, 245, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 5%; max-width: 1200px; margin: 0 auto;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
+        .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: var(--text-main); }
+
+        /* --- Scroll Reveal Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3, .serif { font-family: 'Shippori Mincho', serif; font-weight: 600; color: var(--text-main); }
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        h2 { font-size: clamp(1.4rem, 3vw, 1.75rem); margin-bottom: 1.5rem; font-weight: 500; }
+        h3 { font-size: 1.25rem; margin-bottom: 0.25rem; }
+        
+        .subsection-heading { font-size: 1.1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; color: var(--text-main); letter-spacing: 0.02em; }
+        p { color: var(--text-muted); font-weight: 300; font-size: 1rem; margin-bottom: 1rem; }
+        a { color: var(--text-main); text-decoration: none; transition: color 0.3s ease; }
+        a:hover { color: var(--accent); }
+
+        /* Buttons & Magnetic Elements */
+        .btn-group { display: flex; gap: 1.5rem; margin-top: 2rem; align-items: center; }
+        
+        .magnetic {
+            display: inline-flex; align-items: center; justify-content: center;
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+        
+        .btn {
+            gap: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em;
+            font-weight: 500; border-bottom: 1px solid transparent; padding-bottom: 2px;
+        }
+        .btn:hover { color: var(--accent); border-bottom-color: var(--accent); }
+        .btn-outline { border: 1px solid var(--border-light); padding: 0.6rem 1.2rem; border-radius: 4px; background: var(--bg-alt); border-bottom: 1px solid var(--border-light); }
+        .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Hero Layout with Dynamic Portrait Scaling */
+        .hero { 
+            padding: 8rem 0 0 0; 
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+        .hero-content {
+            flex: 1;
+            padding-bottom: 6rem;
+            max-width: 700px; 
+            position: relative;
+            z-index: 2;
+        }
+        .hero-portrait {
+            flex: 0 0 35%;
+            max-width: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-portrait img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 -10px 30px rgba(0,0,0,0.06));
+        }
+        .hero-subtitle { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 2rem; display: block; }
+        .hero-text { max-width: 700px; font-size: 1.1rem; color: var(--text-main); }
+
+        /* Sections */
+        .section { padding: 6rem 0; border-top: 1px solid var(--border-light); display: grid; grid-template-columns: 1fr 3.5fr; gap: 4rem; scroll-margin-top: 80px; }
+        .section-label { font-family: 'Shippori Mincho', serif; font-size: 1.1rem; color: var(--text-main); margin-top: 5px; }
+
+        /* Project Filtering States */
+        .list-item { margin-bottom: 3rem; transition: opacity 0.5s ease, filter 0.5s ease; }
+        .list-item:last-child { margin-bottom: 0; }
+        .list-item.dimmed { opacity: 0.2; filter: grayscale(100%); pointer-events: none; }
+        
+        .meta-text { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+        /* --- CAROUSELS --- */
+        .carousel-container { position: relative; width: 100%; margin-bottom: 2rem; }
+        .carousel-track-wrapper { width: 100%; overflow: hidden; border: 1px solid var(--border-light); background: var(--bg-alt); border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.04); }
+        .carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -ms-overflow-style: none; scrollbar-width: none; }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-slide { flex: 0 0 100%; scroll-snap-align: center; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 16px; position: relative; }
+        .carousel-slide img, .carousel-slide iframe { width: 100%; height: auto; display: block; border-radius: 16px; transition: transform 0.3s ease; }
+        .carousel-slide iframe { aspect-ratio: 16/9; }
+        .carousel-slide:hover img { transform: scale(1.01); }
+
+        .carousel-btn {
+            position: absolute; top: 50%; width: 40px; height: 40px; border-radius: 50%;
+            background: var(--bg-alt); border: 1px solid var(--border-light); color: var(--text-main);
+            cursor: pointer; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.05); font-size: 1.2rem;
+            margin-top: -20px;
+        }
+        .carousel-btn:hover { color: var(--accent); border-color: var(--accent); }
+        .carousel-btn.prev { left: -20px; }
+        .carousel-btn.next { right: -20px; }
+
+        .dynamic-info { min-height: 100px; margin-bottom: 1rem; animation: textFadeIn 0.4s ease forwards; }
+        @keyframes textFadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .highlight-item { padding: 1.5rem; border: 1px solid transparent; border-radius: 12px; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); margin-bottom: 1rem; }
+        .highlight-item.highlight-active { border-color: var(--accent); background-color: rgba(156, 39, 39, 0.02); transform: translateX(8px); }
+        .highlight-item p:last-child { margin-bottom: 0; }
+
+        /* Tech Tags Filter */
+        .tech-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag {
+            font-size: 0.85rem; padding: 0.3rem 0.8rem; border: 1px solid var(--border-light);
+            border-radius: 4px; color: var(--text-muted); background: var(--bg-alt);
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .tag:hover { border-color: var(--text-main); color: var(--text-main); }
+        .tag.active { background: var(--text-main); color: var(--bg-alt); border-color: var(--text-main); }
+
+        /* Modified Contact List & Social Icons */
+        .contact-list { list-style: none; }
+        .contact-list li { margin-bottom: 1rem; display: flex; align-items: center; flex-wrap: wrap; }
+        .contact-list a.contact-link, .contact-list .non-link { display: inline-flex; align-items: center; gap: 10px; font-size: 1.1rem; word-break: break-word; color: var(--text-main); transition: color 0.3s; }
+        .contact-list a.contact-link:hover { color: var(--accent); }
+        .contact-list i { font-size: 1.3rem; color: var(--text-muted); flex-shrink: 0; }
+        
+        .copy-btn {
+            background: transparent; border: none; color: var(--text-muted); cursor: pointer;
+            font-size: 1.1rem; padding: 6px; border-radius: 4px; margin-left: 8px;
+            display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+        }
+        .copy-btn:hover { background: rgba(156, 39, 39, 0.05); color: var(--accent); }
+        
+        .social-icon { font-size: 2rem; color: var(--text-main); transition: color 0.3s, transform 0.3s; display: inline-flex; }
+        .social-icon:hover { color: var(--accent); transform: translateY(-3px); }
+
+        /* --- BGM FOLDER TAB (Retractable) --- */
+        #audio-tab {
+            position: fixed;
+            bottom: 0;
+            right: 5%; 
+            width: 280px;
+            background: var(--bg-alt);
+            border: 1px solid var(--border-light);
+            border-bottom: none;
+            border-radius: 12px 12px 0 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+            z-index: 9998;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-family: 'Inter', sans-serif;
+        }
+
+        #audio-tab.collapsed {
+            transform: translateY(calc(100% - 34px));
+        }
+
+        .audio-tab-handle {
+            background: var(--bg-color);
+            border-bottom: 1px solid var(--border-light);
+            padding: 8px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .audio-tab-handle:hover { background: #f0eee5; }
+
+        .bgm-title-container {
+            display: flex; align-items: center; gap: 8px; overflow: hidden; width: 85%;
+        }
+
+        .bgm-scroller {
+            overflow: hidden; white-space: nowrap; width: 100%;
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scrollLeft 12s linear infinite;
+            color: var(--text-muted);
+        }
+        
+        #audio-tab:not(.collapsed) .scrolling-text {
+            animation: none;
+            padding-left: 0;
+        }
+
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .toggle-icon { transition: transform 0.3s ease; font-size: 1.1rem; }
+        #audio-tab.collapsed .toggle-icon { transform: rotate(180deg); }
+
+        .audio-controls {
+            display: flex; align-items: center; justify-content: center; gap: 20px; padding: 15px 16px;
+        }
+
+        #bgm-play-btn {
+            width: 40px; height: 40px; border-radius: 50%; background: var(--text-main);
+            color: var(--bg-alt); border: none; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; font-size: 1.2rem; transition: all 0.2s ease;
+        }
+        #bgm-play-btn:hover { background: var(--accent); transform: scale(1.05); }
+
+        .volume-container { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 1.2rem; }
+        #bgm-volume {
+            -webkit-appearance: none; width: 100px; height: 4px; background: var(--border-light);
+            border-radius: 2px; outline: none; cursor: pointer;
+        }
+        #bgm-volume::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none; width: 14px; height: 14px;
+            border-radius: 50%; background: var(--text-main); transition: background 0.2s;
+        }
+        #bgm-volume::-webkit-slider-thumb:hover { background: var(--accent); }
+
+        /* --- DYNAMIC OPTIMIZED CHATBOT UI --- */
+        #chat-widget { position: fixed; bottom: 40px; left: 40px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-start; transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        #chat-widget.hidden-on-scroll { transform: translateX(-150px); }
+        
+        #chat-toggle {
+            width: 55px; height: 55px; border-radius: 50%; background: var(--text-main); color: var(--bg-alt);
+            font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.3rem; cursor: pointer; border: none;
+            animation: attentionPulse 2.5s infinite;
+        }
+        #chat-toggle:hover { background: var(--accent); animation: none; }
+        @keyframes attentionPulse { 0% { box-shadow: 0 0 0 0 rgba(156, 39, 39, 0.3); } 70% { box-shadow: 0 0 0 15px rgba(156, 39, 39, 0); } 100% { box-shadow: 0 0 0 0 rgba(156, 39, 39, 0); } }
+
+        #chat-window {
+            width: 480px; 
+            height: 580px; 
+            margin-bottom: 15px; display: none; flex-direction: column; overflow: hidden;
+            background: var(--bg-alt); border: 1px solid var(--border-light); box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            border-radius: 12px; transform-origin: bottom left; animation: fadeIn 0.2s ease forwards;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .chat-header { padding: 1.2rem; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; font-family: 'Shippori Mincho', serif; font-size: 1rem; }
+        
+        .chat-messages { flex: 1; padding: 1.2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; background: var(--bg-color); scroll-behavior: smooth; }
+        .msg { padding: 0.8rem 1rem; border-radius: 4px; max-width: 85%; font-size: 0.9rem; line-height: 1.5; word-wrap: break-word; }
+        .msg-ai { background: var(--bg-alt); border: 1px solid var(--border-light); align-self: flex-start; color: var(--text-main); }
+        .msg-user { background: var(--text-main); color: var(--bg-alt); align-self: flex-end; }
+        .msg strong { font-weight: 600; color: var(--text-main); }
+        .msg-user strong { color: var(--bg-alt); }
+        .msg em { font-style: italic; }
+        
+        .msg a { color: var(--accent); text-decoration: underline; font-weight: 500; }
+        .msg a:hover { opacity: 0.8; }
+        
+        .cursor { display: inline-block; width: 6px; height: 14px; background-color: var(--text-main); vertical-align: middle; margin-left: 2px; animation: blink 1s step-start infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Suggested AI Prompts Chips */
+        .chat-suggestions { 
+            display: flex; gap: 8px; padding: 0.8rem 1rem 0 1rem; background: var(--bg-alt); 
+            overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;
+        }
+        .chat-suggestions::-webkit-scrollbar { display: none; }
+        
+        .suggestion-chip {
+            white-space: nowrap; font-size: 0.75rem; padding: 4px 10px; border: 1px solid var(--border-light);
+            border-radius: 20px; color: var(--text-muted); cursor: pointer; transition: all 0.2s; background: var(--bg-color);
+            flex-shrink: 0;
+        }
+        .suggestion-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+        .chat-input { padding: 1rem; display: flex; gap: 10px; align-items: center; background: var(--bg-alt); }
+        .chat-input input { flex: 1; background: transparent; border: none; color: var(--text-main); padding: 0.5rem; font-size: 0.9rem; outline: none; width: 100%; }
+        .chat-input input::placeholder { color: #a3a19b; }
+        
+        .chat-input button { 
+            background: transparent; border: none; color: var(--text-main);
+            cursor: pointer; font-size: 1.2rem; transition: color 0.3s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .chat-input button:hover { color: var(--accent); }
+
+        footer { padding: 4rem 0 2rem 0; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-light); margin-bottom: 80px; }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                position: fixed; top: 76px; left: 0; width: 100%;
+                background: rgba(250, 249, 245, 0.98);
+                backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                flex-direction: column; gap: 0; border-bottom: 1px solid var(--border-light);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.4s ease;
+            }
+            .nav-links.open { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+            .nav-links a { padding: 1.5rem 5%; border-top: 1px solid var(--border-light); width: 100%; display: block; }
+
+            /* Mobile Portrait Layout (Restored Flush Design) */
+            .hero { 
+                padding: 6rem 0 0 0; /* Zero bottom padding allows image to rest on border */
+                flex-direction: column;
+                align-items: center; /* Center everything */
+                gap: 2rem; /* Reduced gap to bring image closer to text */
+            }
+            .hero-content { padding-bottom: 0; }
+            
+            .hero-portrait { 
+                width: 100%; 
+                max-width: 260px; /* Scaled down for mobile */
+                height: auto;
+                flex: none; 
+                margin: 0 auto; 
+                display: flex;
+                justify-content: center;
+                align-items: flex-end; /* Ensures image bottom anchors perfectly */
+                position: relative;
+                z-index: 1;
+            }
+            .hero-portrait img {
+                width: 100%;
+                height: auto;
+                display: block;
+                filter: drop-shadow(0 -10px 30px rgba(0,0,0,0.06));
+            }
+
+            .btn-group { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .section { grid-template-columns: 1fr; gap: 1.5rem; padding: 4rem 0; scroll-margin-top: 80px; }
+            .section-label { font-size: 1.3rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; margin-bottom: 0.5rem; }
+            .carousel-btn { display: none; }
+            
+            #audio-tab { right: 20px; width: 230px; }
+            #bgm-volume { width: 70px; }
+            #chat-widget { left: 20px; bottom: 20px; right: auto; align-items: flex-start; }
+            #chat-toggle { width: 50px; height: 50px; font-size: 1.2rem; }
+            #chat-window { width: calc(100vw - 40px); height: 55vh; max-height: 450px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="neural-canvas"></canvas>
+
+    <header>
+        <nav>
+            <div class="serif" style="font-size: 1.2rem; cursor: pointer;" onclick="window.scrollTo(0,0)">Calvin Lee</div>
+            <div class="menu-toggle" onclick="toggleMenu()"><i class="ph-light ph-list" id="menu-icon"></i></div>
+            <div class="nav-links" id="nav-links">
+                <a href="#experience" onclick="closeMenu()">Experience</a>
+                <a href="#projects" onclick="closeMenu()">Projects</a>
+                <a href="#personal" onclick="closeMenu()">Personal Projects</a>
+                <a href="#tech" onclick="closeMenu()">Tech Stack</a>
+                <a href="#contact" onclick="closeMenu()">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <div id="audio-tab" class="collapsed">
+        <div class="audio-tab-handle" onclick="toggleBGMTab()">
+            <div class="bgm-title-container">
+                <i class="ph-light ph-music-notes" id="bgm-icon"></i> 
+                <div class="bgm-scroller"><span class="scrolling-text">🎵 Melo Studio - AI Music Project</span></div>
+            </div>
+            <i class="ph-bold ph-caret-down toggle-icon" id="bgm-caret"></i>
+        </div>
+        <div class="audio-controls">
+            <button id="bgm-play-btn" onclick="toggleBGM(event)" title="Play/Pause Background Music">
+                <i class="ph-fill ph-play"></i>
+            </button>
+            <div class="volume-container">
+                <i class="ph-fill ph-speaker-low"></i>
+                <input type="range" id="bgm-volume" min="0" max="100" value="50" title="Adjust Volume">
+                <i class="ph-fill ph-speaker-high"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="hero reveal">
+            <div class="hero-content">
+                <span class="hero-subtitle">Mainframe & Backend Developer</span>
+                <h1>Bridging legacy architecture<br>with modern AI.</h1>
+                <p class="hero-text">
+                    I specialize in core banking mainframes, intelligent automation, and robust backend architectures. By combining deep knowledge of core technologies like COBOL and Assembler with modern scripting and API integrations, I build systems that push the boundaries of financial infrastructure.
+                </p>
+                
+                <blockquote style="margin: 2rem 0; padding-left: 1.5rem; border-left: 2px solid var(--accent); max-width: 750px;">
+                    <p style="font-family: 'Shippori Mincho', serif; font-size: 1.15rem; color: var(--text-main); font-style: italic; margin-bottom: 0; line-height: 1.6;">
+                        "I view AI as a force multiplier. Instead of spending hours writing syntax from scratch, I utilize advanced AI tools to handle foundational coding. This allows me to focus my energy on what matters most: high-level program planning, architectural logic, and ensuring the project aligns perfectly with business goals."
+                    </p>
+                </blockquote>
+
+                <div class="btn-group">
+                    <a href="mailto:calvinlee123456@gmail.com" class="btn magnetic">Get in Touch <i class="ph-light ph-arrow-right"></i></a>
+                    <a href="download/Calvin_Lee_Summary.docx" class="btn btn-outline magnetic" download><i class="ph-light ph-download-simple"></i> Download CV</a>
+                </div>
+            </div>
+            
+            <div class="hero-portrait">
+                <img src="img/me.png" alt="Calvin Lee Portrait">
+            </div>
+        </section>
+
+        <section class="section" id="experience">
+            <div class="section-label reveal">Experience</div>
+            <div class="section-content">
+                
+                <div class="list-item reveal">
+                    <div class="meta-text">Mar 2023 — Present</div>
+                    <h3>Maybank</h3>
+                    <p style="color: var(--text-main); font-weight: 500; margin-bottom: 0.5rem;">Mainframe Developer</p>
+                    <p>Developing in Assembler and COBOL. Responsible for implementing core banking functions and validating high-volume transaction conditions within critical financial environments.</p>
+                </div>
+
+                <div class="list-item reveal">
+                    <div class="meta-text">Mar 2023 — Mar 2024</div>
+                    <h3>Maybank</h3>
+                    <p style="color: var(--text-main); font-weight: 500; margin-bottom: 0.5rem;">Back End Developer</p>
+                    <p>Focused on internal automation, scripting, and backend system optimizations prior to transitioning fully to the core mainframe architecture.</p>
+                </div>
+
+                <div class="list-item reveal" style="margin-top: 4rem;">
+                    <div class="meta-text">Education</div>
+                    <h3>The University of Queensland</h3>
+                    <p style="margin-bottom: 0.2rem;">BE, Information Technology (2020 — 2021)</p>
+                    <p style="font-size: 0.85rem; color: var(--accent); font-weight: 400;">QS World University Rankings: #46 Globally (2021)</p>
+                    
+                    <h3 style="margin-top: 1.5rem;">HELP University</h3>
+                    <p>Bachelor's degree, Information Technology (2018 — 2021)</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <div class="section-label reveal">Selected Work</div>
+            <div class="section-content">
+
+                <div class="carousel-container reveal">
+                    <div class="carousel-btn prev magnetic" onclick="moveCarousel('project-carousel', -1)"><i class="ph-light ph-caret-left"></i></div>
+                    
+                    <div class="carousel-track-wrapper">
+                        <div class="carousel-track" id="project-carousel">
+                            <div class="carousel-slide" data-index="0" onclick="moveCarousel('project-carousel', 1)"><img src="img/1.png" alt="MconnectTwo"></div>
+                            <div class="carousel-slide" data-index="1" onclick="moveCarousel('project-carousel', 1)"><img src="img/2.png" alt="MconnectTwo"></div>
+                            <div class="carousel-slide" data-index="2" onclick="moveCarousel('project-carousel', 1)"><img src="img/4.png" alt="PFA System"></div>
+                            <div class="carousel-slide" data-index="3" onclick="moveCarousel('project-carousel', 1)"><img src="img/5.png" alt="PFA System"></div>
+                            <div class="carousel-slide" data-index="4" onclick="moveCarousel('project-carousel', 1)"><img src="img/6.png" alt="Icetool"></div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-btn next magnetic" onclick="moveCarousel('project-carousel', 1)"><i class="ph-light ph-caret-right"></i></div>
+                </div>
+                
+                <div class="list-item dynamic-info reveal" id="dynamic-project-info" data-current-index="-1"></div>
+
+                <h3 class="subsection-heading serif reveal" style="margin-top: 4rem;">Core Infrastructure Work</h3>
+
+                <div class="list-item reveal" data-tech="JCL,COBOL,Assembler">
+                    <h3>Banking Automation & SAFE</h3>
+                    <p>Implemented Savings Related Projects (SAFE), a critical mainframe function where the vast majority of banking transactions route through, ensuring strict condition validation and system stability.</p>
+                </div>
+
+                <div class="list-item reveal" data-tech="Python">
+                    <h3>Core AI Implementation</h3>
+                    <p>Acted as the primary technical tester for pushing AI usage directly inside core banking systems, ensuring secure and efficient operation of new generative technologies.</p>
+                </div>
+
+                <div class="list-item reveal" data-tech="Node.js,Python,PHP">
+                    <h3>Internal Web Automation</h3>
+                    <p>Developed confidential daily monitoring websites utilizing Node.js, Python, and PHP. These tools are currently registered to and utilized by over 200 employees daily to streamline operations.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section" id="personal">
+            <div class="section-label reveal">Personal Projects</div>
+            <div class="section-content">
+
+                <div class="carousel-container reveal">
+                    <div class="carousel-btn prev magnetic" onclick="moveCarousel('personal-carousel', -1)"><i class="ph-light ph-caret-left"></i></div>
+                    
+                    <div class="carousel-track-wrapper">
+                        <div class="carousel-track" id="personal-carousel">
+                            <div class="carousel-slide" data-index="0">
+                                <iframe id="yt-iframe" src="https://www.youtube.com/embed/oGyh4GGf84k?enablejsapi=1&autoplay=1&mute=1&controls=0" title="Melo Studio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            
+                            <div class="carousel-slide" data-index="1" style="background: #1a1a1a; display: flex; flex-direction: column; color: white; cursor: pointer;" onclick="moveCarousel('personal-carousel', 1)">
+                                <i class="ph-light ph-brain" style="font-size: 4.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                                <h3 style="color: white; margin: 0; font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: 0.05em;">Direct LLM API Hub</h3>
+                            </div>
+
+                            <div class="carousel-slide" data-index="2" style="background: #1a1a1a; display: flex; flex-direction: column; color: white; cursor: pointer;" onclick="moveCarousel('personal-carousel', 1)">
+                                <i class="ph-light ph-game-controller" style="font-size: 4.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                                <h3 style="color: white; margin: 0; font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: 0.05em;">Interactive Games</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-btn next magnetic" onclick="moveCarousel('personal-carousel', 1)"><i class="ph-light ph-caret-right"></i></div>
+                </div>
+
+                <div id="personal-projects-list">
+                    <h3 class="subsection-heading serif reveal" style="margin-top: 1rem;">Creative AI & Architecture</h3>
+
+                    <div class="highlight-item highlight-active reveal" data-target="0" data-tech="Python,Node.js">
+                        <h3>Melo Studio</h3>
+                        <p>A creative side project involving the use of AI to compose, produce, and generate music entirely from scratch.</p>
+                    </div>
+
+                    <div class="highlight-item reveal" data-target="1" data-tech="Python,Node.js">
+                        <h3>Direct API LLM Integration</h3>
+                        <p>Implementing raw capabilities from models like Llama, Deepseek, Kimi, and Qwen directly into custom applications:</p>
+                        <ul class="contact-list" style="margin-top: 1.5rem;">
+                            <li><a class="contact-link" href="https://stack.gt.tc/guessai/index.php?i=1" target="_blank" style="font-weight: 500;"><i class="ph-light ph-game-controller" style="color: var(--accent);"></i> AI Question Guessing Game <i class="ph-bold ph-arrow-up-right" style="font-size: 0.8rem; margin-left: 4px; color: var(--text-muted);"></i></a></li>
+                            <li><div class="non-link" style="color: var(--text-muted);"><i class="ph-light ph-discord-logo"></i> Personal Discord AI (Google Cloud, Similar to Open Claw)</div></li>
+                            <li><a class="contact-link" href="#" onclick="toggleChat(event); return false;" style="font-weight: 500; border-bottom: 1px solid var(--border-light);"><i class="ph-light ph-robot" style="color: var(--accent);"></i> This website also has AI functionality, click here!</a></li>
+                        </ul>
+                    </div>
+
+                    <h3 class="subsection-heading serif reveal" style="margin-top: 3rem;">Interactive Games</h3>
+
+                    <div class="highlight-item reveal" data-target="2" data-tech="Node.js,JavaScript,HTML/CSS">
+                        <h3>Custom Web Games</h3>
+                        <p>Interactive browser-based projects built to experiment with multiplayer sockets and rendering mechanics:</p>
+                        <ul class="contact-list" style="margin-top: 1.5rem;">
+                            <li style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 1.2rem;">
+                                <a class="contact-link" href="https://imposterme.onrender.com/" target="_blank" style="font-weight: 500;"><i class="ph-light ph-ghost" style="color: var(--accent);"></i> An Imposter Game (Multiplayer)<i class="ph-bold ph-arrow-up-right" style="font-size: 0.8rem; margin-left: 4px; color: var(--text-muted);"></i></a>
+                                <span style="font-size: 0.9rem; color: var(--text-muted); padding-left: 2rem; line-height: 1.4;">A multiplayer web game built for real-time player interaction and communication.</span>
+                            </li>
+                            <li style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+                                <a class="contact-link" href="https://stack.gt.tc/slice.php" target="_blank" style="font-weight: 500;"><i class="ph-light ph-knife" style="color: var(--accent);"></i> Slice<i class="ph-bold ph-arrow-up-right" style="font-size: 0.8rem; margin-left: 4px; color: var(--text-muted);"></i></a>
+                                <span style="font-size: 0.9rem; color: var(--text-muted); padding-left: 2rem; line-height: 1.4;">A web-based game project focused on precise timing and quick mechanics.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section" id="tech">
+            <div class="section-label reveal">Tech Stack</div>
+            <div class="section-content reveal">
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-main); margin-bottom: 0.8rem;">Primary Focus</h4>
+                    <div class="tech-grid" id="tech-filters">
+                        <span class="tag">JCL</span>
+                        <span class="tag">COBOL</span>
+                        <span class="tag">Assembler</span>
+                        <span class="tag">SQL</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-main); margin-bottom: 0.8rem;">Additional Experience</h4>
+                    <div class="tech-grid" id="tech-filters">
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">PHP</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">MongoDB</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section reveal" id="contact" style="border-bottom: none;">
+            <div class="section-label">Connect</div>
+            <div class="section-content">
+                <ul class="contact-list">
+                    <li>
+                        <a href="mailto:calvinlee123456@gmail.com" class="contact-link"><i class="ph-light ph-envelope-simple"></i> calvinlee123456@gmail.com</a>
+                        <button class="copy-btn" onclick="copyText('calvinlee123456@gmail.com', this)" title="Copy Email">
+                            <i class="ph-light ph-copy"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <a href="tel:+60146444059" class="contact-link"><i class="ph-light ph-phone"></i> +60 14 644 4059</a>
+                        <button class="copy-btn" onclick="copyText('+60146444059', this)" title="Copy Phone Number">
+                            <i class="ph-light ph-copy"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <div class="non-link"><i class="ph-light ph-map-pin"></i> WP. Kuala Lumpur, Malaysia</div>
+                    </li>
+                    <li style="margin-top: 1.5rem; display: flex; gap: 1.5rem;">
+                        <a href="https://www.linkedin.com/in/calvin-lee-370382229/" target="_blank" class="social-icon magnetic" title="LinkedIn"><i class="ph-light ph-linkedin-logo"></i></a>
+                        <a href="https://wa.me/60146444059" target="_blank" class="social-icon magnetic" title="WhatsApp"><i class="ph-light ph-whatsapp-logo"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Calvin Lee</p>
+        </footer>
+    </div>
+
+    <div id="chat-widget">
+        <div id="chat-window">
+            <div class="chat-header">
+                <span>AI Assistant</span>
+                <span style="cursor: pointer; color: var(--text-muted);" onclick="toggleChat(event)"><i class="ph ph-x"></i></span>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="msg msg-ai">Hello. I am the AI representing Calvin Lee's portfolio. How may I assist you regarding his experience or technical background?</div>
+            </div>
+            <div class="chat-suggestions">
+                <span class="suggestion-chip" onclick="sendChip('What is Calvin\'s Mainframe stack?')">Mainframe Stack</span>
+                <span class="suggestion-chip" onclick="sendChip('Summarize his Maybank experience')">Maybank Experience</span>
+                <span class="suggestion-chip" onclick="sendChip('Tell me about his Creative AI projects')">Creative Projects</span>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off" onkeypress="handleEnter(event)">
+                <button id="send-btn" onclick="sendMessage()"><i class="ph-light ph-paper-plane-right"></i></button>
+            </div>
+        </div>
+        <div id="chat-toggle" class="magnetic" onclick="toggleChat(event)">AI</div>
+    </div>
+
+    <script>
+        // --- Mobile Menu Logic ---
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            const menuIcon = document.getElementById('menu-icon');
+            navLinks.classList.toggle('open');
+            if (navLinks.classList.contains('open')) {
+                menuIcon.className = 'ph-light ph-x';
+            } else {
+                menuIcon.className = 'ph-light ph-list';
+            }
+        }
+        function closeMenu() {
+            document.getElementById('nav-links').classList.remove('open');
+            document.getElementById('menu-icon').className = 'ph-light ph-list';
+        }
+
+        // --- Orchestrated Scroll Reveals ---
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target); 
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // --- Magnetic Micro-Interactions ---
+        document.querySelectorAll('.magnetic').forEach(elem => {
+            elem.addEventListener('mousemove', (e) => {
+                const rect = elem.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.3; 
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.3;
+                elem.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = `translate(0px, 0px)`;
+            });
+        });
+
+        // --- Tech Stack Filtering ---
+        const tags = document.querySelectorAll('.tech-grid .tag');
+        const projectItems = document.querySelectorAll('.list-item[data-tech], .highlight-item[data-tech]');
+        
+        tags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                const isActive = tag.classList.contains('active');
+                tags.forEach(t => t.classList.remove('active')); 
+
+                if (!isActive) {
+                    tag.classList.add('active');
+                    const selectedTech = tag.innerText.trim();
+                    let firstMatch = null;
+                    
+                    projectItems.forEach(item => {
+                        if (item.dataset.tech && item.dataset.tech.includes(selectedTech)) {
+                            item.classList.remove('dimmed');
+                            if (!firstMatch) firstMatch = item;
+                        } else {
+                            item.classList.add('dimmed');
+                        }
+                    });
+                    
+                    if (firstMatch) {
+                        const y = firstMatch.getBoundingClientRect().top + window.scrollY - 100;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                } else {
+                    projectItems.forEach(item => item.classList.remove('dimmed'));
+                }
+            });
+        });
+
+        // --- Neural Ink Background Canvas Logic ---
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width; this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, 1.5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(43, 42, 39, 0.15)'; ctx.fill();
+            }
+        }
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(); particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath(); ctx.strokeStyle = `rgba(115, 113, 108, ${0.1 - dist/1200})`; 
+                        ctx.lineWidth = 0.5; ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- Multi-Carousel Logic with Lazy Auto-Looping ---
+        const carouselTimers = {};
+
+        function moveCarousel(trackId, direction) {
+            const track = document.getElementById(trackId);
+            const slideWidth = track.querySelector('.carousel-slide').offsetWidth;
+            const gap = parseFloat(getComputedStyle(track).gap) || 0;
+            const maxScroll = track.scrollWidth - track.clientWidth;
+            
+            let newPos = track.scrollLeft + (direction * (slideWidth + gap));
+
+            if (direction === 1 && track.scrollLeft >= maxScroll - 10) {
+                newPos = 0;
+            } else if (direction === -1 && track.scrollLeft <= 10) {
+                newPos = maxScroll;
+            }
+
+            track.scrollTo({ left: newPos, behavior: 'smooth' });
+            if(carouselTimers[trackId]) resetAutoPlay(trackId); 
+        }
+
+        function startAutoPlay(trackId) {
+            if(!carouselTimers[trackId]) {
+                carouselTimers[trackId] = setInterval(() => {
+                    moveCarousel(trackId, 1);
+                }, 5000); 
+            }
+        }
+
+        function resetAutoPlay(trackId) {
+            clearInterval(carouselTimers[trackId]);
+            carouselTimers[trackId] = null;
+            startAutoPlay(trackId);
+        }
+
+        // Delay carousel autoplay until they are actually visible
+        const carouselPlayObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startAutoPlay(entry.target.id);
+                }
+            });
+        }, { threshold: 0.3 });
+        carouselPlayObserver.observe(document.getElementById('project-carousel'));
+        carouselPlayObserver.observe(document.getElementById('personal-carousel'));
+
+        // Dynamic Carousel Observers
+        const projectData = [
+            { title: "MconnectTwo", text: "<p>A centralized network intelligence and daily monitoring dashboard. Designed to visualize network dependencies, track batch schedules, and locate specific tags and relationships in real-time.</p>" }, 
+            { title: "MconnectTwo", text: "<p>A centralized network intelligence and daily monitoring dashboard. Designed to visualize network dependencies, track batch schedules, and locate specific tags and relationships in real-time.</p>" }, 
+            { title: "PFA System", text: "<p>Critical Issue & Alert Manager designed for high-availability tracking and system audits, ensuring internal teams can identify and respond to potential failures instantly.</p>" }, 
+            { title: "PFA System", text: "<p>Critical Issue & Alert Manager designed for high-availability tracking and system audits, ensuring internal teams can identify and respond to potential failures instantly.</p>" }, 
+            { title: "Icetool", text: "<p>An automated report retrieval and self-service platform, streamlining secure data access and report generation for various operational teams.</p>" }  
+        ];
+
+        const projectTrack = document.getElementById('project-carousel');
+        const projectInfoDisplay = document.getElementById('dynamic-project-info');
+
+        const projectObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = entry.target.dataset.index;
+                    if (projectInfoDisplay.dataset.currentIndex != index) {
+                        projectInfoDisplay.dataset.currentIndex = index;
+                        projectInfoDisplay.style.animation = 'none'; projectInfoDisplay.offsetHeight; 
+                        projectInfoDisplay.style.animation = 'textFadeIn 0.4s ease forwards';
+                        projectInfoDisplay.innerHTML = `<h3>${projectData[index].title}</h3><div style="margin-bottom: 0;">${projectData[index].text}</div>`;
+                    }
+                }
+            });
+        }, { root: projectTrack, threshold: 0.6 });
+        projectTrack.querySelectorAll('.carousel-slide').forEach(slide => projectObserver.observe(slide));
+
+        // Personal Tracker
+        const personalTrack = document.getElementById('personal-carousel');
+        const personalItems = document.querySelectorAll('.highlight-item');
+        const personalObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = entry.target.dataset.index;
+                    
+                    personalItems.forEach(el => el.classList.remove('highlight-active'));
+                    const activeItem = document.querySelector(`.highlight-item[data-target="${index}"]`);
+                    if (activeItem) activeItem.classList.add('highlight-active');
+                }
+            });
+        }, { root: personalTrack, threshold: 0.6 });
+        personalTrack.querySelectorAll('.carousel-slide').forEach(slide => personalObserver.observe(slide));
+
+        document.querySelectorAll('.carousel-track').forEach(track => {
+            track.addEventListener('touchstart', () => { if(carouselTimers[track.id]) resetAutoPlay(track.id); }, {passive: true});
+        });
+
+        // --- YouTube API Logic & Folder Tab Controls ---
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var ytPlayer;
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('yt-iframe', {
+                events: {
+                    'onReady': function(event) {
+                        // Keep muted initially to guarantee autoplay works on modern browsers
+                        event.target.mute(); 
+                        event.target.playVideo(); 
+                        
+                        // Global Interaction Listener: Unmute on first recognized user activation
+                        const enableAudio = () => {
+                            if (ytPlayer && ytPlayer.unMute) {
+                                ytPlayer.unMute();
+                                ytPlayer.setVolume(50);
+                                document.getElementById('bgm-volume').value = 50;
+                            }
+                            // Clean up listeners immediately after successfully executing
+                            ['click', 'mousedown', 'touchstart', 'keydown'].forEach(evt => {
+                                window.removeEventListener(evt, enableAudio);
+                            });
+                        };
+
+                        // Attach exclusively to valid browser user-activation events
+                        ['click', 'mousedown', 'touchstart', 'keydown'].forEach(evt => {
+                            window.addEventListener(evt, enableAudio, { once: true, passive: true });
+                        });
+                    },
+                    'onStateChange': function(event) {
+                        const btnIcon = document.querySelector('#bgm-play-btn i');
+                        if(event.data == YT.PlayerState.PLAYING) {
+                            btnIcon.className = 'ph-fill ph-pause';
+                        } else {
+                            btnIcon.className = 'ph-fill ph-play';
+                        }
+                    }
+                }
+            });
+        }
+
+        function toggleBGMTab() {
+            document.getElementById('audio-tab').classList.toggle('collapsed');
+        }
+
+        function toggleBGM(e) {
+            if(e) e.stopPropagation();
+            if(ytPlayer && ytPlayer.getPlayerState) {
+                const state = ytPlayer.getPlayerState();
+                if(state == YT.PlayerState.PLAYING) {
+                    ytPlayer.pauseVideo();
+                } else {
+                    ytPlayer.unMute(); 
+                    ytPlayer.playVideo();
+                }
+            }
+        }
+
+        document.getElementById('bgm-volume').addEventListener('input', function(e) {
+            if(ytPlayer && ytPlayer.setVolume) {
+                ytPlayer.unMute();
+                ytPlayer.setVolume(e.target.value);
+            }
+        });
+        
+        document.querySelector('.audio-controls').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // --- Copy to Clipboard Function ---
+        function copyText(text, btnElement) {
+            navigator.clipboard.writeText(text).then(() => {
+                const icon = btnElement.querySelector('i');
+                const originalClass = icon.className;
+                icon.className = 'ph-light ph-check';
+                icon.style.color = '#3a9d5d'; 
+                
+                setTimeout(() => {
+                    icon.className = originalClass;
+                    icon.style.color = '';
+                }, 2000);
+            }).catch(err => console.error('Failed to copy: ', err));
+        }
+
+        // --- Chat Widget Logic ---
+        let lastScrollY = window.scrollY;
+        const chatWidget = document.getElementById('chat-widget');
+
+        window.addEventListener('scroll', () => {
+            if (isChatOpen) return;
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY && currentScrollY > 50) { chatWidget.classList.add('hidden-on-scroll'); } 
+            else { chatWidget.classList.remove('hidden-on-scroll'); }
+            lastScrollY = currentScrollY;
+        });
+
+        const chatWindow = document.getElementById('chat-window');
+        const chatMessages = document.getElementById('chat-messages');
+        const inputField = document.getElementById('chat-input');
+        let isChatOpen = false;
+
+        function toggleChat(e) {
+            if(e) e.stopPropagation(); 
+            isChatOpen = !isChatOpen;
+            chatWindow.style.display = isChatOpen ? 'flex' : 'none';
+            if(isChatOpen) { inputField.focus(); chatWidget.classList.remove('hidden-on-scroll'); }
+        }
+
+        document.addEventListener('click', (event) => {
+            if (isChatOpen && !chatWidget.contains(event.target) && event.target.id !== 'chat-toggle') {
+                toggleChat(event);
+            }
+        });
+
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        
+        function sendChip(promptText) {
+            inputField.value = promptText;
+            sendMessage();
+        }
+
+        const suggestionsContainer = document.querySelector('.chat-suggestions');
+        suggestionsContainer.addEventListener('wheel', (e) => {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                suggestionsContainer.scrollLeft += e.deltaY;
+            }
+        });
+
+        function parseMarkdown(text) {
+            return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+                       .replace(/(^|[^"'])(https?:\/\/[^\s<]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer">$2</a>')
+                       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+                       .replace(/\*(.*?)\*/g, '<em>$1</em>')             
+                       .replace(/\n/g, '<br>');                          
+        }
+
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `msg msg-${sender}`;
+            msgDiv.innerHTML = sender === 'ai' ? parseMarkdown(text) : text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            appendMessage(text, 'user');
+            inputField.value = '';
+            inputField.disabled = true;
+            
+            const typingId = 'typing-' + Date.now();
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'msg msg-ai';
+            typingDiv.id = typingId;
+            typingDiv.innerHTML = '<span class="cursor"></span>';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: text })
+                });
+                
+                if (!response.ok) throw new Error(response.status === 429 ? "Rate limit exceeded. Please wait a minute." : "Connection failed.");
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let aiText = '';
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    buffer += decoder.decode(value, { stream: true });
+                    let parts = buffer.split('\n');
+                    buffer = parts.pop(); 
+                    
+                    for (const part of parts) {
+                        if (part.startsWith('data: ') && part !== 'data: [DONE]') {
+                            try {
+                                const parsed = JSON.parse(part.substring(6));
+                                aiText += parsed.choices[0]?.delta?.content || '';
+                                typingDiv.innerHTML = parseMarkdown(aiText) + '<span class="cursor"></span>';
+                                chatMessages.scrollTop = chatMessages.scrollHeight;
+                            } catch (e) {}
+                        }
+                    }
+                }
+                typingDiv.innerHTML = parseMarkdown(aiText);
+
+            } catch (error) {
+                document.getElementById(typingId).innerHTML = parseMarkdown(error.message || 'Error communicating with the server.');
+            } finally {
+                inputField.disabled = false;
+                inputField.focus();
+            }
+        }
+    </script>
+</body>
+</html>
