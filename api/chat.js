@@ -50,7 +50,8 @@ module.exports = async function handler(req, res) {
           { role: 'system', content: getSystemPrompt() },
           { role: 'user', content: message }
         ],
-        stream: true // Enabled Streaming
+        stream: true, // Enabled Streaming
+        temperature: 0.65 // Added interpretive creativity boost
       })
     });
 
