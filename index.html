@@ -187,6 +187,13 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
         .modal-overlay.open .modal-content { transform: translateY(0); }
+        
+        /* Modal Scrollbar Styling */
+        .modal-content::-webkit-scrollbar { width: 8px; }
+        .modal-content::-webkit-scrollbar-track { background: transparent; border-radius: 8px; margin: 8px 0; }
+        .modal-content::-webkit-scrollbar-thumb { background: #dcdad5; border-radius: 8px; border: 2px solid var(--bg-color); }
+        .modal-content::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
         .modal-close {
             position: absolute; top: 15px; right: 15px; width: 32px; height: 32px;
             border-radius: 50%; background: var(--bg-alt); display: flex;
@@ -194,12 +201,15 @@
             border: 1px solid var(--border-light); color: var(--text-main); transition: all 0.2s; z-index: 2;
         }
         .modal-close:hover { color: var(--bg-alt); background: var(--accent); border-color: var(--accent); }
-        .modal-body { padding: 2rem; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Fixed Modal Body to prevent padding collapse */
+        .modal-body { padding: 2.5rem 2rem 3rem 2rem; text-align: center; } 
         .modal-body img { 
             width: 100%; max-width: 400px; height: auto; border-radius: 12px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 1.5rem; border: 1px solid var(--border-light);
+            display: inline-block;
         }
-        .modal-caption { text-align: left; width: 100%; }
+        .modal-caption { text-align: left; width: 100%; display: block; }
         .modal-caption h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--text-main); }
         .modal-caption p { font-size: 0.95rem; margin-bottom: 0.5rem; line-height: 1.6; color: var(--text-muted); }
 
@@ -612,21 +622,54 @@
             <div class="section-label reveal">Experience</div>
             <div class="section-content">
                 
+                <!-- Combined Maybank Role 1 -->
                 <div class="list-item reveal">
-                    <div class="meta-text">Mar 2023 — Present</div>
+                    <div class="meta-text">Mar 2024 — Present</div>
                     <h3>Maybank</h3>
-                    <p style="color: var(--text-main); font-weight: 500; margin-bottom: 0.5rem;">Mainframe Developer</p>
-                    <p style="margin-bottom: 0.5rem;">Developing in Assembler and COBOL. Responsible for implementing core banking functions and validating high-volume transaction conditions within critical financial environments.</p>
-                    <div class="award-trigger" onclick="openAwardModal()">
-                        <i class="ph-light ph-trophy"></i> Click to view award
-                    </div>
+                    <p style="color: var(--text-main); font-weight: 500; margin-bottom: 1.2rem;">Full Stack / Mainframe Developer</p>
+                    
+                    <ul style="list-style: none; padding-left: 0; color: var(--text-muted); font-weight: 300;">
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+                            <strong style="color: var(--text-main); font-weight: 500;">Core AI Integration:</strong> Acted as the primary technical tester for pushing generative AI usage directly inside core banking systems, ensuring secure operation and mitigating data risks via safe placeholder testing.
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+                            <strong style="color: var(--text-main); font-weight: 500;">Internal Web Automation:</strong> Developed confidential daily monitoring dashboards utilizing HTML, JS, and PHP, currently used by over 200 employees to streamline operations and map mainframe-to-open-system logic flows.
+                        </li>
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+                            <strong style="color: var(--text-main); font-weight: 500;">Zero Defect Stability & Resiliency Award:</strong> Engineered an automated monitoring system that successfully reduced the time required to diagnose internal program slowness from a 2-day manual process down to under 1 hour.
+                            
+                        </li>
+                        <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+                            <strong style="color: var(--text-main); font-weight: 500;">2026 Performance Recognition:</strong> Awarded an exceptional 3.5-month performance bonus, significantly exceeding the standard target cap for the cohort tier based on top-rated year-end deliverables.
+                        </li>
+                        <div style="margin-top: 0.8rem;">
+                                <div class="award-trigger" onclick="openAwardModal()">
+                                    <i class="ph-light ph-trophy"></i> Click to view award
+                                </div>
+                            </div>
+                    </ul>
                 </div>
 
+                <!-- Combined Maybank Role 2 -->
                 <div class="list-item reveal">
                     <div class="meta-text">Mar 2023 — Mar 2024</div>
                     <h3>Maybank</h3>
-                    <p style="color: var(--text-main); font-weight: 500; margin-bottom: 0.5rem;">Back End Developer</p>
-                    <p>Focused on internal automation, scripting, and backend system optimizations prior to transitioning fully to the core mainframe architecture.</p>
+                    <p style="color: var(--text-main); font-weight: 500; margin-bottom: 1.2rem;">Mainframe Developer</p>
+                    
+                    <ul style="list-style: none; padding-left: 0; color: var(--text-muted); font-weight: 300;">
+                        <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+                            <strong style="color: var(--text-main); font-weight: 500;">Banking Automation & SAFE:</strong> Implemented Savings Related Projects (SAFE), managing critical mainframe functions to validate high-volume transaction conditions and ensure system stability using Assembler and COBOL.
+                        </li>
+                        <li style="margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative;">
+                            <span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+                            <strong style="color: var(--text-main); font-weight: 500;">Preventative Failure Analysis:</strong> Developed on request of Bank Negara & Audited By PWC to track internal system health for daily info, large quantity of data processed in house and to be converted to readable data. (Full Stack Development)
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="list-item reveal" style="margin-top: 4rem;">
@@ -663,23 +706,6 @@
                 </div>
                 
                 <div class="list-item dynamic-info reveal" id="dynamic-project-info" data-current-index="-1"></div>
-
-                <h3 class="subsection-heading serif reveal" style="margin-top: 4rem;">Core Infrastructure Work</h3>
-
-                <div class="list-item reveal" data-tech="JCL,COBOL,Assembler">
-                    <h3>Banking Automation & SAFE</h3>
-                    <p>Implemented Savings Related Projects (SAFE), a critical mainframe function where the vast majority of banking transactions route through, ensuring strict condition validation and system stability.</p>
-                </div>
-
-                <div class="list-item reveal" data-tech="Python">
-                    <h3>Core AI Implementation</h3>
-                    <p>Acted as the primary technical tester for pushing AI usage directly inside core banking systems, ensuring secure and efficient operation of new generative technologies.</p>
-                </div>
-
-                <div class="list-item reveal" data-tech="Node.js,Python,PHP">
-                    <h3>Internal Web Automation</h3>
-                    <p>Developed confidential daily monitoring websites utilizing Node.js, Python, and PHP. These tools are currently registered to and utilized by over 200 employees daily to streamline operations.</p>
-                </div>
 
             </div>
         </section>
