@@ -10,24 +10,18 @@ const profileData = {
   professional: {
     roles: [
       {
-        company: "PwC",
-        title: "Software Developer",
-        duration: "Mar 2025 - Present",
-        type: "Full-time",
-        description: "Developing robust backend architectures and implementing strategic software solutions, bridging enterprise discipline with modern development practices."
-      },
-      {
         company: "Maybank",
-        title: "Mainframe Developer (Assembler and Cobol Developer)",
-        duration: "Mar 2023 - Mar 2025",
+        title: "Full Stack / Mainframe Developer",
+        duration: "Mar 2024 - Present",
         type: "Full-time, On-site",
-        description: "Collaborated across multiple internal teams using Agile methodologies to identify developer pain points and implement strategic solutions for complex architectural flows."
+        description: "Developing in Assembler and COBOL. Responsible for implementing core banking functions and validating high-volume transaction conditions within critical financial environments."
       },
       {
         company: "Maybank",
-        title: "Back End Developer",
+        title: "Mainframe Developer",
         duration: "Mar 2023 - Mar 2024",
-        description: "Focused on internal automation and cross-team integrations."
+        type: "Full-time, On-site",
+        description: "Focused on internal automation, scripting, and backend system optimizations prior to transitioning fully to the core mainframe architecture."
       },
       {
         company: "Egate Messaging",
@@ -37,8 +31,8 @@ const profileData = {
       }
     ],
     education: [
-      "Bachelor of Engineering - BE, Information Technology, The University of Queensland (2020 - 2021)",
-      "Bachelor's degree, Information Technology, HELP University (Aug 2018 - Dec 2021)"
+      "Bachelor of Engineering - BE, Information Technology, The University of Queensland (2021 - 2022)",
+      "Bachelor's degree, Information Technology, HELP University (Aug 2018 - Dec 2020)"
     ]
   },
   technical: {
@@ -73,6 +67,16 @@ const profileData = {
     {
       name: "Interactive Web Games",
       description: "Built browser-based projects like 'An Imposter Game' and 'Slice' to experiment with multiplayer real-time sockets and rendering mechanics."
+    }
+  ],
+  awards: [
+    {
+      name: "Zero Defect Stability and Resiliency Award",
+      description: "Awarded for optimizing internal system tasks. Created an automated monitoring system that reduced the time required to diagnose internal program slowness from a 2-day manual process down to under an hour."
+    },
+    {
+      name: "2026 Performance Recognition",
+      description: "Awarded an exceptional 3.5-month performance bonus, significantly exceeding the standard target cap for the cohort tier based on top-rated year-end deliverables."
     }
   ],
   interview_context: {
@@ -116,6 +120,9 @@ function getSystemPrompt() {
 
   - Creative AI & Games:
   ${profileData.creative_and_games.map(p => `  * ${p.name}: ${p.description}`).join("\n")}
+
+  - Awards & Recognition:
+  ${profileData.awards.map(a => `  * ${a.name}: ${a.description}`).join("\n")}
   
   - Behavioral Interview Context & Technical Philosophy:
     * Calvin's Programming Philosophy: "${profileData.interview_context.quote}"
@@ -136,5 +143,4 @@ function getSystemPrompt() {
   6. If the user asks to email or contact him, provide his email as a mailto link like this: [Email Calvin](mailto:${profileData.personal.email})`;
 }
 
-// Export using CommonJS
 module.exports = { profileData, getSystemPrompt };
